@@ -82,14 +82,13 @@ public class AdministratorController {
 		BeanUtils.copyProperties(insertAdministratorForm, administrator);
 		administratorService.insert(administrator);
 
-
 		if(result.hasErrors()){
 			model.addAttribute(insertAdministratorForm);
 				return "administrator/insert";
 			}else{
-				
-				return "employee/list";
+				return "redirect:/";
 			}
+
 	}
 
 	/////////////////////////////////////////////////////

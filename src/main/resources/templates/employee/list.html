@@ -89,6 +89,7 @@
         </li>
       </ol>
 
+      
       <!-- table -->
       <div class="row">
         <div
@@ -98,6 +99,12 @@
 
           <!-- ここにモックのtable要素を貼り付けます -->
 
+          <form th:action="@{/employee/serch}" method="post">
+            <input type="text" name="name">
+            <input type="submit" name="serchButton" value="検索">
+          </form>
+          <p th:text="${msg}" style="color: red;"></p>
+    
           <table class="table table-striped">
             <thead>
               <tr>

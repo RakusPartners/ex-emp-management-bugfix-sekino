@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Employee;
 import com.example.form.UpdateEmployeeForm;
+import com.example.form.serchForm;
 import com.example.service.EmployeeService;
 
 /**
@@ -92,4 +93,25 @@ public class EmployeeController {
 		employeeService.update(employee);
 		return "redirect:/employee/showList";
 	}
+
+
+	@PostMapping("/serch")
+	public String serch(Model model,serchForm form){
+
+		if(form.getName()== null){
+			return "redirect:/employee/showList";
+		}
+
+		List<Employee> serchList = employeeService.serchList(form.getName());
+		if(serchList.size() ==  0){
+			model.addAttribute("msg", "一件もありませんでした");
+			return showList(model);
+			
+		}else{
+			model.addAttribute("employeeList", serchList);
+			return "employee/list";
+		}
+	}
+
+
 }

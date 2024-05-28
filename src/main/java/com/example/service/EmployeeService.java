@@ -52,4 +52,11 @@ public class EmployeeService {
 	public void update(Employee employee) {
 		employeeRepository.update(employee);
 	}
+
+
+	public List<Employee> serchList(String serch) {
+		String serch1 = serch;
+		List<Employee> serchList = employeeRepository.serch(serch1);
+		return serchList;
+	}
 }

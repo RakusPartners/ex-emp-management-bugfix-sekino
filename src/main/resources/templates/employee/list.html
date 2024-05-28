@@ -89,6 +89,10 @@
         </li>
       </ol>
 
+      <form th:action="@{/employee/serch}" method="post">
+        <input type="text" name="serch">
+        <input type="submit" name="serchButton" value="検索">
+      </form>
       <!-- table -->
       <div class="row">
         <div

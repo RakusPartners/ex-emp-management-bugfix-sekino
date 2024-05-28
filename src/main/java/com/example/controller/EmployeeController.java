@@ -92,4 +92,16 @@ public class EmployeeController {
 		employeeService.update(employee);
 		return "redirect:/employee/showList";
 	}
+
+
+	@PostMapping("/serch")
+	public String serch(Model model,String serch){
+
+		System.out.println(serch);
+		List<Employee> serchList = employeeService.serchList(serch);
+		model.addAttribute("employeeList", serchList);
+		return "employee/list";
+	}
+
+
 }

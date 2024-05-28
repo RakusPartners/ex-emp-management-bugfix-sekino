@@ -65,7 +65,5 @@ public class InsertAdministratorForm {
 	public void setCheckPassword(String checkPassword) {
 		this.checkPassword = checkPassword;
 	}
-
-
 	
 }

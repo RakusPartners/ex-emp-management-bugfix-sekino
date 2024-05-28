@@ -85,11 +85,11 @@ public class EmployeeRepository {
 	}
 
 	public List<Employee> serch(String serch) {
-		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count FROM employees WHERE name LIKE '%:serch%' ORDER BY name ASC";
+		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count FROM employees WHERE name LIKE :serch ORDER BY name ASC";
 
-		SqlParameterSource param = new MapSqlParameterSource().addValue("serch", serch);
-		List<Employee> developmentList = template.query(sql, param,EMPLOYEE_ROW_MAPPER);
-
+		SqlParameterSource param = new MapSqlParameterSource().addValue("serch", "%" + serch + "%");
+		List<Employee> developmentList = template.query(sql, param, EMPLOYEE_ROW_MAPPER);
+		System.out.println(developmentList.size());
 		return developmentList;
 	}
 

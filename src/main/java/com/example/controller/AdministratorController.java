@@ -65,6 +65,7 @@ public class AdministratorController {
 	 */
 	@GetMapping("/toInsert")
 	public String toInsert() {
+			
 		return "administrator/insert";
 	}
 
@@ -76,6 +77,7 @@ public class AdministratorController {
 	 */
 	@PostMapping("/insert")
 	public String insert(Model model,@ModelAttribute @Validated InsertAdministratorForm insertAdministratorForm ,BindingResult result) {
+
 
 		Administrator existAdministrator = administratorService.findByMailAddress(insertAdministratorForm.getMailAddress());
 		if (existAdministrator != null) {
@@ -95,6 +97,7 @@ public class AdministratorController {
 			return "redirect:/";
 		
 		}
+
 
 	/////////////////////////////////////////////////////
 	// ユースケース：ログインをする

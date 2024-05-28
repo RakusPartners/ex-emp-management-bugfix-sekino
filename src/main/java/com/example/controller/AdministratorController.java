@@ -82,8 +82,8 @@ public class AdministratorController {
 			result.rejectValue("checkPassword", "","確認用パスワードが一致しません");
 		}
 
-		Administrator existAdministrator = administratorService.findByMailAddress(insertAdministratorForm.getMailAddress());
-		if (existAdministrator != null) {
+		
+		if (administratorService.findByMailAddress(insertAdministratorForm.getMailAddress()) != null) {
 			result.rejectValue("mailAddress", "", "そのメールアドレスは既に登録されています");
 		}
 

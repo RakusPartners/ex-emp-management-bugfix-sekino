@@ -79,6 +79,10 @@ public class AdministratorController {
 	public String insert(Model model,@ModelAttribute @Validated InsertAdministratorForm insertAdministratorForm ,BindingResult result) {
 
 
+		if(!insertAdministratorForm.getPassword().equals(insertAdministratorForm.getCheckPassword())){
+			result.rejectValue("checkPassword", "","確認用パスワードが一致しません");
+		}
+
 		Administrator existAdministrator = administratorService.findByMailAddress(insertAdministratorForm.getMailAddress());
 		if (existAdministrator != null) {
 			result.rejectValue("mailAddress", "", "そのメールアドレスは既に登録されています");
@@ -88,6 +92,7 @@ public class AdministratorController {
 		if(result.hasErrors()){
 			model.addAttribute(insertAdministratorForm);
 			return toInsert();
+
 		}
 			Administrator administrator = new Administrator();
 			// フォームからドメインにプロパティ値をコピー
@@ -124,6 +129,7 @@ public class AdministratorController {
 			redirectAttributes.addFlashAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
 			return "redirect:/";
 		}
+		session.setAttribute("administratorName", administrator.getName());
 		return "redirect:/employee/showList";
 	}
 

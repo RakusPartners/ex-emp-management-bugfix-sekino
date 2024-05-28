@@ -78,6 +78,9 @@ public class AdministratorController {
 	@PostMapping("/insert")
 	public String insert(Model model,@ModelAttribute @Validated InsertAdministratorForm insertAdministratorForm ,BindingResult result) {
 
+		if(!insertAdministratorForm.getPassword().equals(insertAdministratorForm.getCheckPassword())){
+			result.rejectValue("checkPassword", "","確認用パスワードが一致しません");
+		}
 
 		Administrator existAdministrator = administratorService.findByMailAddress(insertAdministratorForm.getMailAddress());
 		if (existAdministrator != null) {
@@ -88,6 +91,9 @@ public class AdministratorController {
 		if(result.hasErrors()){
 			model.addAttribute(insertAdministratorForm);
 			return toInsert();
+
+		
+
 		}
 			Administrator administrator = new Administrator();
 			// フォームからドメインにプロパティ値をコピー

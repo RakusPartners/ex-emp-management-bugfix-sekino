@@ -78,6 +78,7 @@ public class AdministratorController {
 	@PostMapping("/insert")
 	public String insert(Model model,@ModelAttribute @Validated InsertAdministratorForm insertAdministratorForm ,BindingResult result) {
 
+
 		if(!insertAdministratorForm.getPassword().equals(insertAdministratorForm.getCheckPassword())){
 			result.rejectValue("checkPassword", "","確認用パスワードが一致しません");
 		}
@@ -92,8 +93,6 @@ public class AdministratorController {
 			model.addAttribute(insertAdministratorForm);
 			return toInsert();
 
-		
-
 		}
 			Administrator administrator = new Administrator();
 			// フォームからドメインにプロパティ値をコピー
@@ -103,7 +102,6 @@ public class AdministratorController {
 			return "redirect:/";
 		
 		}
-
 
 	/////////////////////////////////////////////////////
 	// ユースケース：ログインをする

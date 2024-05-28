@@ -89,7 +89,6 @@ public class EmployeeRepository {
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("serch", "%" + serch + "%");
 		List<Employee> developmentList = template.query(sql, param, EMPLOYEE_ROW_MAPPER);
-		System.out.println(developmentList.size());
 		return developmentList;
 	}
 

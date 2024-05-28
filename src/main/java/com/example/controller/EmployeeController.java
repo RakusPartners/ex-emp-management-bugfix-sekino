@@ -104,13 +104,11 @@ public class EmployeeController {
 
 		List<Employee> serchList = employeeService.serchList(form.getName());
 		if(serchList.size() ==  0){
-			System.out.println("dd");
 			model.addAttribute("msg", "一件もありませんでした");
 			return showList(model);
 			
 		}else{
 			model.addAttribute("employeeList", serchList);
-			System.out.println("aa");
 			return "employee/list";
 		}
 	}

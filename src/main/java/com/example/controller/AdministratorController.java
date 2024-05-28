@@ -77,19 +77,33 @@ public class AdministratorController {
 	 */
 	@PostMapping("/insert")
 	public String insert(Model model,@ModelAttribute @Validated InsertAdministratorForm insertAdministratorForm ,BindingResult result) {
-		Administrator administrator = new Administrator();
-		// フォームからドメインにプロパティ値をコピー
-		BeanUtils.copyProperties(insertAdministratorForm, administrator);
-		administratorService.insert(administrator);
+
+		if(!insertAdministratorForm.getPassword().equals(insertAdministratorForm.getCheckPassword())){
+			result.rejectValue("checkPassword", "","確認用パスワードが一致しません");
+		}
+
+		Administrator existAdministrator = administratorService.findByMailAddress(insertAdministratorForm.getMailAddress());
+		if (existAdministrator != null) {
+			result.rejectValue("mailAddress", "", "そのメールアドレスは既に登録されています");
+		}
+
 
 		if(result.hasErrors()){
 			model.addAttribute(insertAdministratorForm);
-				return "administrator/insert";
-			}else{
-				return "redirect:/";
-			}
+			return toInsert();
 
-	}
+		
+
+		}
+			Administrator administrator = new Administrator();
+			// フォームからドメインにプロパティ値をコピー
+			BeanUtils.copyProperties(insertAdministratorForm, administrator);
+			administratorService.insert(administrator);
+
+			return "redirect:/";
+		
+		}
+
 
 	/////////////////////////////////////////////////////
 	// ユースケース：ログインをする
@@ -117,6 +131,7 @@ public class AdministratorController {
 			redirectAttributes.addFlashAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
 			return "redirect:/";
 		}
+		session.setAttribute("administratorName", administrator.getName());
 		return "redirect:/employee/showList";
 	}
 
